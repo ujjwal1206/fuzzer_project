@@ -40,12 +40,6 @@ func integerOverflow() {
 	logCrash(4, "Integer Overflow")
 }
 
-// 5. Unhandled Panic (Divide by Zero)
-func divideByZero() {
-	fmt.Println(10 / 0)
-	logCrash(5, "Divide by Zero")
-}
-
 // 6. Uninitialized Memory Read (Nil Pointer Dereference)
 func nilPointer() {
 	var ptr *int
