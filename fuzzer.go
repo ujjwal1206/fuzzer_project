@@ -16,13 +16,14 @@ func mutateInput(input []byte) []byte {
 	copy(mutated, input)
 
 	for i := range mutated {
-		if rand.Intn(100) < 13 { // 13% chance of mutation
-			mutated[i] = byte(rand.Intn(256))
+		if rand.Intn(100) < 13 { // 13% mutation rate
+			mutated[i] = byte(rand.Intn(255) + 1) // Avoid zero to prevent instant crashes
 		}
 	}
 
 	return mutated
 }
+
 
 func main() {
 	if len(os.Args) < 4 {
