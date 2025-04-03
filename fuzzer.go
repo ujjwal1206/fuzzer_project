@@ -56,7 +56,7 @@ func main() {
 	input := seed
 	for i := 0; i < numIterations; i++ {
 		input = mutateInput(input, progNum)
-
+		
 		cmd := exec.Command("go", "run", "crashable.go", progNum, string(input))
 		cmd.Stderr = os.Stderr
 		cmd.Stdout = os.Stdout
@@ -64,7 +64,8 @@ func main() {
 
 		if err != nil {
 			fmt.Printf("Crash detected at iteration %d!\n", i)
-			crashFile := fmt.Sprintf("crash_%d_%d.txt", progNum, i)
+			progNumInt, _ := strconv.Atoi(progNum)
+crashFile := fmt.Sprintf("crash_%d_%d.txt", progNumInt, i) // Correct
 			os.WriteFile(crashFile, input, 0644)
 			return
 		}

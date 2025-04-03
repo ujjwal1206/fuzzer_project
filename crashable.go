@@ -102,8 +102,6 @@ func main() {
 		memoryLeak()
 	case 4:
 		integerOverflow()
-	case 5:
-		divideByZero()
 	case 6:
 		nilPointer()
 	case 7:
