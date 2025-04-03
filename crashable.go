@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
-	"io/ioutil"
 )
 
 // 1. Buffer Overflow (Panic on large input)
@@ -102,15 +102,15 @@ func main() {
 		memoryLeak()
 	case 4:
 		integerOverflow()
-	case 6:
+	case 5:
 		nilPointer()
-	case 7:
+	case 6:
 		useAfterFree()
-	case 8:
+	case 7:
 		formatString(input)
-	case 9:
+	case 8:
 		outOfBounds()
-	case 10:
+	case 9:
 		stringExplosion()
 	default:
 		fmt.Println("Invalid program number")
