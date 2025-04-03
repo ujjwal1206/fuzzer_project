@@ -10,19 +10,27 @@ import (
 )
 
 // Mutate input by randomly changing bytes
-func mutateInput(input []byte) []byte {
+func mutateInput(input []byte, progNum string) []byte {
 	rand.Seed(time.Now().UnixNano())
 	mutated := make([]byte, len(input))
 	copy(mutated, input)
 
 	for i := range mutated {
-		if rand.Intn(100) < 13 { // 13% mutation rate
-			mutated[i] = byte(rand.Intn(255) + 1) // Avoid zero to prevent instant crashes
+		if rand.Intn(100) < 13 { // 13% chance of mutation
+			newByte := byte(rand.Intn(256))
+			
+			// If testing divide-by-zero (case 5), avoid zero mutations
+			if progNum == "5" && newByte == 0 {
+				newByte = 1 + byte(rand.Intn(255)) // Ensure non-zero value
+			}
+
+			mutated[i] = newByte
 		}
 	}
 
 	return mutated
 }
+
 
 
 func main() {
@@ -47,7 +55,7 @@ func main() {
 
 	input := seed
 	for i := 0; i < numIterations; i++ {
-		input = mutateInput(input)
+		input = mutateInput(input, progNum)
 
 		cmd := exec.Command("go", "run", "crashable.go", progNum, string(input))
 		cmd.Stderr = os.Stderr
